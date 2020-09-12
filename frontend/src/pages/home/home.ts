@@ -43,18 +43,6 @@ export class HomePage {
   };
 
 
-
-
-  carregarServico(newpage: boolean = false) {
-    this.servicoProvider.listaAnuncios(this.page, this.size).subscribe(
-      (data: any) => {
-        this.lista_anuncios = data.content
-        this.totalElementos = data.totalElements;
-      }, error => {
-        console.log(error);
-      })
-  };
-
   pageDetalhes(anuncio) {
    // console.log(anuncio)
     this.navCtrl.push(ServicoDetalhesPage, { anuncio: anuncio })
@@ -150,7 +138,7 @@ export class HomePage {
       });
   }
 
-  obterAnuncios(infiniteScroll?, cancelarBusca?) {
+  obterAnuncios(infiniteScroll?, cancelarBusca?, refresh?) {
 
     if(!!cancelarBusca) {
       this.buscaTitulo =  false;
@@ -162,7 +150,7 @@ export class HomePage {
      }
       this.filtro.page = 0;
     }else {
-      this.filtro.page = this.filtro.page;
+      this.filtro.page = this.filtro.page+1;
     }
       if (this.filtro.descricao && this.filtro.descricao === '') {
         this.filtro.descricao = null;
@@ -170,15 +158,21 @@ export class HomePage {
 
         this.servicoProvider.obterAnuncios(this.filtro).pipe(finalize(()=>this.loaderCom.hide())).subscribe(
           (data: any) => {
-            if (!infiniteScroll) {
+            if (!infiniteScroll &&  (data.content && data.content.length)) {
               this.lista_anuncios = [];
+              this.lista_anuncios = data.content;
+            }
+            if(infiniteScroll &&  (data.content && data.content.length)){
+              this.lista_anuncios = (data.content && data.content.length)? this.lista_anuncios.concat(data.content) : !!infiniteScroll? [] : this.lista_anuncios;
             }
             this.totalElementos = data.totalElements;
-            this.lista_anuncios = (data.content && data.content.length)? this.lista_anuncios.concat(data.content) : !!infiniteScroll? [] : this.lista_anuncios;
             this.page = this.page + 1;
             this.cacto = !data.content.length ? true : false;
             if (infiniteScroll) {
               infiniteScroll.complete();
+            }
+            if (refresh) {
+              refresh.complete();
             }
           })
   };

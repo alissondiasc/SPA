@@ -24,7 +24,7 @@
               <ion-item  style="margin-bottom: -24px;">
                 <ion-avatar item-start>
                   <img *ngIf="!anuncio.usuario.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
-                  <img *ngIf="anuncio.usuario.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+                  <img *ngIf="anuncio.usuario.fotoUsuario" src="{{anuncio.usuario.fotoUsuario}}"/>
                 </ion-avatar>
                 <ion-label>{{anuncio.usuario.nome}}</ion-label>
               </ion-item>
