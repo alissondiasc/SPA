@@ -1,0 +1,43 @@
+<ion-menu [content]="content" id="menu-material">
+    <ion-content>
+      <div class="menu-header" text-center >
+        <!--material-design-background-->
+        <img *ngIf="!usuarioCompleto.fotoUsuario" src="assets/icon/icone-do-usuario.jpg"
+        
+        />
+        <img *ngIf="usuarioCompleto.fotoUsuario" src="{{usuarioCompleto.fotoUsuario}}"
+        
+        />
+        <p class="name">{{usuarioCompleto.nome}}</p>
+        <p class="e-mail">{{usuarioCompleto.email}}</p>
+      </div>
+      <ion-list no-lines>
+        <button menuClose="left" ion-item detail-none  (click)="homepage()">
+              <ion-icon name="home" item-left></ion-icon>
+              Serviços
+          </button>
+          <button  menuClose="left" ion-item detail-none  (click)="goServicosAndamento()">
+            <ion-icon name="hammer" item-left></ion-icon>
+            Serviços em Andamento
+        </button>
+        <button menuClose="left" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon [name]="p.icon" item-left></ion-icon>
+        {{p.title}}
+      </button>
+      <button menuClose="left" ion-item detail-none (click)="goConfig()">
+        <ion-icon name="md-settings" item-left></ion-icon>
+        Configurações
+      </button>
+      <button menuClose="left" ion-item detail-none  (click)="logout()">
+          <ion-icon name="md-exit" item-left></ion-icon>
+          Sair
+      </button>
+      <hr class="cor"/>
+        <button menuClose="left" ion-item detail-none  (click)="goSobre()">
+            Sobre
+        </button>
+ 
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-nav id="nav" #content [root]="rootPage"></ion-nav>

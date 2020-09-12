@@ -1,0 +1,68 @@
+<ion-header>
+
+    <ion-navbar color='padrao'>
+      <ion-title>Cadastrar serviço</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  <ion-content padding>
+    <form (submit)="cadastrar()">
+      <ion-row>
+        <ion-col>
+  
+          <ion-list no-margin no-padding>
+  
+            <ion-item>
+              <ion-label floating>Título do anúncio</ion-label>
+              <ion-input [(ngModel)]="servico.titulo" type="text" name="titulo"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>Descrição do anúncio</ion-label>
+              <ion-input [(ngModel)]="servico.descricao" type="text" name="descricao"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>Categoria</ion-label>
+              <ion-select [(ngModel)]="servico.categoria.id" name="categoria">
+                <ion-option *ngFor="let categoria of arrayCategorias" value="{{categoria.id}}">{{categoria.nome}}</ion-option>
+              </ion-select>
+            </ion-item>            
+              <ion-item>
+                  <ion-label >Usar minha localização</ion-label>
+                  <ion-toggle [(ngModel)]="toogle" (ionChange)="verificarEndereco()" name="toogle"></ion-toggle>
+                </ion-item>
+              
+          </ion-list>
+        </ion-col>
+      
+      </ion-row>
+      <br>
+      <ion-row *ngIf="!toogle" >
+        <ion-col>
+  
+          <ion-list no-margin no-padding>
+  
+            <ion-item>
+              <ion-label floating>Cidade</ion-label>
+              <ion-input [(ngModel)]="servico.localidade" type="text" name="localidade"></ion-input>
+            </ion-item>
+  
+            <ion-item>
+              <ion-label floating>Bairro</ion-label>
+              <ion-input [(ngModel)]="servico.bairro" type="text" name="bairro"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row margin-top>
+        <ion-col>
+          <button [disabled]="!servico.titulo || !servico.descricao || !servico.localidade || !servico.bairro || !servico.categoria.id" small ion-button color="padrao" block>
+              <div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">Anunciar serviço</span>
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-content>
+  

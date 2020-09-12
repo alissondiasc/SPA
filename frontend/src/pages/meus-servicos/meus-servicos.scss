@@ -1,0 +1,42 @@
+page-meus-servicos {
+  .justify{
+    white-space: initial;
+    text-align: justify;
+    font-size: 14px;
+  }
+  #cart-btn {
+    position: relative;
+  }
+
+  #cart-badge {
+    background-color: #fd9205 ;
+  }
+  .rowNda {
+    margin-top: 80px;
+    text-align: center;
+    img {
+      width: 300px;
+    }
+    h2 {
+      color: rgba($color: #000000, $alpha: 0.46);
+      width: 250px;
+      margin: 0 auto;
+      font-weight: bold;
+    }
+  }
+    .config{
+        max-width: 60%;
+        border: 0;
+    }
+    ion-segment{
+        background: #21233f !important;
+    }
+    .segment-md .segment-button.activated, .segment-md .segment-button{
+        color: #fff;;
+    }
+    .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+        border-color: rgb(253, 146, 5);
+        color: rgb(253, 146, 5);
+        font-weight: bold;
+    }
+}

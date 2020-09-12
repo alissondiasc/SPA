@@ -1,0 +1,87 @@
+page-perfil {
+  .justify{
+    white-space: initial;
+    text-align: justify;
+    font-size: 14px;
+  }
+  .rowNda {
+    margin-top: 80px;
+    text-align: center;
+    img {
+      width: 300px;
+    }
+    h2 {
+      color: rgba($color: #000000, $alpha: 0.46);
+      width: 250px;
+      margin: 0 auto;
+      font-weight: bold;
+    }
+  }
+  .item-md ion-avatar ion-img, .item-md ion-avatar img {
+    border-radius: 60%;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+}
+  .config{
+    max-width: 60%;
+    border: 0;
+}
+  .x {
+    padding: 5px;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    min-height: 1px;
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    margin-bottom: -40px;
+}
+  ion-segment{
+    background: #21233f !important;
+}
+.segment-md .segment-button.activated, .segment-md .segment-button{
+    color: #fff;;
+}
+.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+    border-color: rgb(253, 146, 5);
+    color: rgb(253, 146, 5);
+    font-weight: bold;
+}
+  ion-content{
+    background: #fff !important;
+  }
+    ul {
+        padding: 0px;
+
+        &.rating li {
+          padding: 5px 10px !important;
+          background: none;
+          color: #ffb400;
+
+          ion-icon {
+            font-size: 30px;
+          }
+        }
+      }
+      ion-card{
+        box-shadow: none !important;
+      }
+      ion-list{
+
+        p{
+          font-size: 13px !important;
+          color: #6d6b6b !important;
+        }
+        h2{
+          font-weight: 500 !important;
+          color: #21233f !important;
+        }
+      }
+}

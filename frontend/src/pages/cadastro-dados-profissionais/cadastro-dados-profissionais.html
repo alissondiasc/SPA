@@ -1,0 +1,314 @@
+<ion-header>
+  <ion-navbar color='padrao'>
+    <button ion-button menuToggle>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Atualize seus dados </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="dadosProfissionaisForm">
+    <ion-grid class="box">
+        <!-- <ion-row *ngIf="!usuarioCompleto.fotoUsuario">
+            <ion-col class="x">
+              <ion-item no-lines>
+                <ion-avatar item-start>
+                  <img src="assets/icon/icone-do-usuario.jpg">
+                </ion-avatar>
+               <a (click)="getImagem()">Alterar</a>
+              </ion-item>
+            </ion-col>
+        </ion-row> -->
+
+        <ion-row>
+            <ion-col class="x">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img *ngIf="!usuarioCompleto.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                  <img *ngIf="usuarioCompleto.fotoUsuario" src="{{usuarioCompleto.fotoUsuario}}"/>
+                </ion-avatar>
+                <a (click)="getImagem()">Alterar</a>
+                <a class="remove" (click)="getRemove()">Remover</a>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+          <br>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Nome completo*</ion-label>
+            <ion-input [(ngModel)]="usuarioCompleto.nome" formControlName="nomeCompleto" type="text"></ion-input>
+          </ion-item>
+          <div  class="errormsg">
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.nome">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('nomeCompleto').hasError(validation.type) && (dadosProfissionaisForm.get('nomeCompleto').dirty || dadosProfissionaisForm.get('nomeCompleto ').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>CPF*</ion-label>
+            <ion-input [brmasker]="{mask:'000.000.000-00', len:14}" [(ngModel)]="usuarioCompleto.cpf" formControlName="cpf"  type="text"></ion-input>
+          </ion-item>
+
+          <div  class="errormsg">
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.cpf">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('cpf').hasError(validation.type) && (dadosProfissionaisForm.get('cpf').dirty || dadosProfissionaisForm.get('cpf').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>RG*</ion-label>
+            <ion-input [brmasker]="{mask:'0000.000', len:8}" [(ngModel)]="usuarioCompleto.rg" formControlName="rg"></ion-input>
+          </ion-item>
+          <div  class="errormsg">
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.rg">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('rg').hasError(validation.type) && (dadosProfissionaisForm.get('rg').dirty || dadosProfissionaisForm.get('rg').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Orgão Expedidor*</ion-label>
+            <ion-input [brmasker]="{mask:'000/00', len:6}" [(ngModel)]="usuarioCompleto.orgaoExpedidor" formControlName="orgaoexpedidor"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-row >
+          <ion-col col-12>
+            <ion-item>
+                <ion-label floating>Gênero</ion-label>
+                <ion-select [(ngModel)]="usuarioCompleto.sexo" formControlName="sexo" cancelText="Cancelar" okText="OK">
+                    <ion-option value="MASCULINO">Masculino</ion-option>
+                    <ion-option value="FEMININO">Feminino</ion-option>
+                </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Escolaridade</ion-label>
+            <ion-select formControlName="escolaridade"  [(ngModel)]="usuarioCompleto.escolaridade" cancelText="Cancelar" okText="OK">
+              <ion-option value="FUNDAMENTAL_INCOMPLETO">Fundamental - Incompleto</ion-option>
+              <ion-option value="FUNDAMENTAL_COMPLETO">Fundamental - Completo</ion-option>
+              <ion-option value="MEDIO_COMPLETO">Médio - Incompleto</ion-option>
+              <ion-option value="MEDIO_INCOMPLETO">Médio - Completo</ion-option>
+              <ion-option value="SUPERIOR_COMPLETO">Superior - Incompleto</ion-option>
+              <ion-option value="SUPERIOR_INCOMPLETO">Superior - Completo</ion-option>
+              <ion-option value="POSGRADUACAO_INCOMPLETO">Pós-graduação (Lato senso) - Incompleto</ion-option>
+              <ion-option value="POSGRADUACAO_COMPLETO">Pós-graduação (Lato senso) - Completo</ion-option>
+            </ion-select>
+          </ion-item>
+          <div  class="errormsg">
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.escolaridade">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('escolaridade').hasError(validation.type) && (dadosProfissionaisForm.get('escolaridade').dirty || dadosProfissionaisForm.get('escolaridade').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <ion-grid class="box">
+      <ion-row>
+        <ion-col>
+          <strong>Dados trabalhistas</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Faça um resumo do seu trabalho*</ion-label>
+            <ion-textarea formControlName="resumoProfissional" [(ngModel)]="usuarioCompleto.dadosProfissionais.resumo" type="text"></ion-textarea>
+
+
+          </ion-item>
+          <div class="errormsg">
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.resumoProfissional">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('resumoProfissional').hasError(validation.type) && (dadosProfissionaisForm.get('resumoProfissional').dirty || dadosProfissionaisForm.get('resumoProfissional').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Ramo principal*</ion-label>
+            <ion-select [(ngModel)]="usuarioCompleto.dadosProfissionais.profissaoPrincipal.id" interface='popover' formControlName="categoriaPrincipal" cancelText="Cancelar" okText="OK">
+              <ion-option *ngFor="let categoria of listCAtegorias" value="{{categoria.id}}">{{categoria.nome}}</ion-option>
+            </ion-select>
+          </ion-item>
+          <div class="errormsg" >
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.categoriaPrincipal">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('categoriaPrincipal').hasError(validation.type) && (dadosProfissionaisForm.get('categoriaPrincipal').dirty || dadosProfissionaisForm.get('categoriaPrincipal').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
+        <ion-col col-12>
+          <ion-label stacked>Outras categorias</ion-label>
+          <tag-input placeholder='Categorias' [(ngModel)]="usuarioCompleto.usuarioCompleto.dadosProfissionais.outrasProfissoes" [displayBy]="'titulo'" [identifyBy]="'id'"
+            [placeholder]="'+ CBO'" [secondaryPlaceholder]="'CBO'" >
+            <tag-input-dropdown [autocompleteObservable]='listCAtegorias' [displayBy]="'nome'" [identifyBy]="'id'"></tag-input-dropdown>
+          </tag-input>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+    <br>
+    <ion-grid class="box">
+      <ion-row>
+        <ion-col>
+          <strong>Endereço</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label floating>CEP*</ion-label>
+            <ion-input [(ngModel)]="usuarioCompleto.endereco.cep" formControlName="cep" type="text"></ion-input>
+          </ion-item>
+          <div class="errormsg" >
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.cep">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('cep').hasError(validation.type) && (dadosProfissionaisForm.get('cep').dirty || dadosProfissionaisForm.get('cep').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col>
+          <button color="orange" ion-button round (click)="getEndereco(cep)">
+            <div>Busca CEP</div>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Endereço(logradouro)*</ion-label>
+            <ion-input [(ngModel)]="usuarioCompleto.endereco.logradouro" formControlName="logradouro" type="text"></ion-input>
+          </ion-item>
+          <div class="errormsg">
+            <div class="validation-errors" >
+              <ng-container *ngFor="let validation of validation_messages.logradouro">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('logradouro').hasError(validation.type) && (dadosProfissionaisForm.get('logradouro').dirty || dadosProfissionaisForm.get('logradouro').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Bairro*</ion-label>
+            <ion-input [(ngModel)]="usuarioCompleto.endereco.bairro" formControlName="bairro" type="text"></ion-input>
+          </ion-item>
+          <div class="errormsg" >
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.bairro">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('bairro').hasError(validation.type) && (dadosProfissionaisForm.get('bairro').dirty || dadosProfissionaisForm.get('bairro').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Complemento</ion-label>
+            <ion-input [(ngModel)]="usuarioCompleto.endereco.rua" formControlName="complemento" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Cidade*</ion-label>
+            <ion-input [(ngModel)]="usuarioCompleto.endereco.localidade" formControlName="cidade" type="text"></ion-input>
+          </ion-item>
+          <div class="errormsg" >
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.cidade">
+                <div class="error-message" *ngIf="dadosProfissionaisForm.get('cidade').hasError(validation.type) && (dadosProfissionaisForm.get('cidade').dirty || dadosProfissionaisForm.get('cidade').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <ion-grid class="box">
+      <ion-row>
+        <ion-col>
+          <strong>Contato</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Telefone*</ion-label>
+            <ion-input [brmasker]="{mask:'(00)0000-00000', len:13}" [(ngModel)]="usuarioCompleto.telefone"  formControlName="telefone" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Celular*</ion-label>
+            <ion-input [brmasker]="{mask:'(00)00000-000', len:14}" [(ngModel)]="usuarioCompleto.celular"  formControlName="celular"   type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label floating>Email*</ion-label>
+            <ion-input [disabled]="true" [(ngModel)]="usuarioCompleto.email" formControlName="email" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item>
+    <ion-row>
+      <button  [disabled]="!dadosProfissionaisForm.valid" color="padrao" ion-button icon-start full (click)="submeter()" ion-button>
+          <div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">Salvar</span>
+      </button>
+    </ion-row>
+  </ion-item>
+  </form>
+
+</ion-content>

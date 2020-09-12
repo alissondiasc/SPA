@@ -1,0 +1,101 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-searchbar [(ngModel)]="filtro.descricao" *ngIf="buscaTitulo" showCancelButton="true" (search)="obterAnuncios()"
+      (ionCancel)="obterAnuncios(false, true)"></ion-searchbar>
+
+
+    <button *ngIf="!buscaTitulo" ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title *ngIf="!buscaTitulo" >SPA</ion-title>
+    <ion-buttons end>
+      <button hidden  *ngIf="!buscaTitulo" ion-button icon-only>
+        <ion-icon style="color: #fd9205 " name="md-options"></ion-icon>
+      </button>
+      <button ion-button icon-only *ngIf="!buscaTitulo" (click)="buscaTitulo=true">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content auto-hide>
+
+
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Carregando...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-row  class="rowNda" *ngIf="!!cacto">
+    <ion-col col-12 text-center>
+      <img class ="config"src="assets/imgs/cactus.svg">
+      <h1>Não há resultados para essa <br /> pesquisa!</h1>
+    </ion-col>
+  </ion-row>
+  <ion-list  *ngFor="let anuncio of lista_anuncios">
+  <ion-card [hidden]="anuncio.usuario.id == usuarioCompleto.id" style=" border-radius: 33px;    height: 285px;">
+    <ion-item (click)="pageDetalhes(anuncio)">
+      <ion-avatar item-start>
+        <img *ngIf="!anuncio.usuario.fotoUsuario "src="assets/icon/icone-do-usuario.jpg">
+        <img *ngIf="anuncio.usuario.fotoUsuario "src="{{anuncio.usuario.fotoUsuario}}">
+      </ion-avatar>
+      <h2>{{anuncio.usuario.nome | nameFilter}}</h2>
+      <p>{{anuncio.bairro}}, {{anuncio.localidade}}</p>
+      <br>
+    </ion-item>
+    <ion-card-content style="margin-top: -19px;">
+        <ion-card-header style="padding-left: 9px;" >
+          <h2>{{anuncio.titulo}}</h2>
+          </ion-card-header>
+          <ion-card-content style="padding-left: 9px;" (click)="pageDetalhes(anuncio)">
+            <ion-row>
+              <ion-col>
+                <p>
+                  {{anuncio.descricao | elipseFilter:100 }} <a style="text-decoration:none">ver mais</a>
+                </p>
+              </ion-col>
+            </ion-row>
+
+          </ion-card-content>
+      <ion-row margin-top>
+        <ion-col text-center col-12>
+          <button color='padrao' ion-button icon-start (click)="candidatarSE(anuncio.id)">
+            <ion-icon name="ios-open-outline"></ion-icon>
+            <div>Candidatar-se</div>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col center text-center>
+          <ion-note>
+            {{anuncio.dataHora | date:'EEEE dd/MM/yyyy'}} às {{anuncio.dataHora | date:'HH:mm'}}
+          </ion-note>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-card-content>
+  </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll *ngIf="lista_anuncios.length < totalElementos" (ionInfinite)="obterAnuncios($event, false)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais serviços...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-fab right bottom #fab>
+    <button color='padrao' ion-fab (click)="goCadastrarServico()">
+      <ion-icon name="ios-create-outline"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>
+

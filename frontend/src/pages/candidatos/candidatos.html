@@ -1,0 +1,59 @@
+
+<ion-header>
+
+  <ion-navbar color='padrao'>
+    <ion-title>Candidatos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-row *ngIf="!candidatos || !candidatos.length" class="rowNda">
+    <ion-col col-12 text-center>
+      <img class ="config" src="assets/imgs/cactus.svg">
+      <h1>Nada foi adicionado <br /> ainda!</h1>
+    </ion-col>
+  </ion-row>
+        <ion-card *ngFor="let candidato of candidatos">
+            <ion-item>
+                <ion-avatar style="margin-top: -12px;" item-start>
+                  <img *ngIf="!candidato.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                  <img *ngIf="candidato.fotoUsuario" src="{{candidato.fotoUsuario}}">
+                </ion-avatar>
+                <h2>{{candidato?.nome}}</h2>
+                <p>{{candidato?.email}} </p>
+                <br>
+            </ion-item>
+
+              <ion-item >
+                  <h1>Resumo profissional</h1>
+                <br>
+                  <p class="justify">{{candidato?.dadosProfissionais?.resumo}}</p>
+                <br>
+                  <p><b>Serviços prestados: </b> {{candidato?.dadosProfissionais?.qtdServicos?candidato.dadosProfissionais.qtdServicos:" Em busca da primeira oportunidade."}} </p>
+                </ion-item>
+
+                <ion-row no-margin no-padding>
+                    <ion-col col-6>
+                      <button color="padrao" ion-button (click)="goPerfil(candidato.email)">
+                        <ion-icon name="list"></ion-icon>
+                        &nbsp; Ver perfil
+                      </button>
+                    </ion-col>
+                    <ion-col  col-6 text-right>
+                      <div *ngIf="!servio.profissional">
+                        <button  ion-button icon-start color='secondary' (click)="contratar(candidato.id)">
+                        <ion-icon *ngIf="!isLoading" name="md-checkmark-circle-outline"></ion-icon>
+                        &nbsp; <div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">CONTRATAR</span>
+                      </button>
+                    </div>
+
+                    </ion-col>
+                </ion-row>
+
+
+
+        </ion-card>
+
+</ion-content>

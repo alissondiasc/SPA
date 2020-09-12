@@ -1,0 +1,73 @@
+
+<ion-header>
+  <ion-navbar color='padrao'>
+    <button ion-button menuToggle>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Acompanhe seus serviços</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+      <ion-row *ngIf="!!cacto" class="rowNda">
+          <ion-col col-12 text-center>
+            <img class ="config"src="assets/imgs/cactus.svg">
+            <h1>Nada foi adicionado <br /> ainda!</h1>
+          </ion-col>
+        </ion-row>
+        <ion-card *ngFor="let anuncio of meusServicosAndamento">
+          <ion-row style="margin-bottom: 11px;" >
+            <ion-col>
+              <ion-item  style="margin-bottom: -24px;">
+                <ion-avatar item-start>
+                  <img *ngIf="!anuncio.usuario.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                  <img *ngIf="anuncio.usuario.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+                </ion-avatar>
+                <ion-label>{{anuncio.usuario.nome}}</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+            <ion-card-header>
+              <h2>{{anuncio.titulo}}</h2>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="justify">
+                {{anuncio.descricao}}
+              </p>
+
+              <ion-row *ngIf="!isFinalizado(anuncio.status)"no-margin no-padding>
+                  <ion-col col-sm-4 col-12 text-center>
+                      <button  small full text-capitalize ion-button  color='orange' (click)="finalizarServico(anuncio.id)">
+                        <ion-icon *ngIf="!isLoading" name="ios-arrow-dropright-circle-outline"></ion-icon>
+                        &nbsp;<div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">FINALIZAR</span>
+                      </button>
+                    </ion-col>
+              </ion-row>
+              <ion-row no-margin no-padding *ngIf="isFinalizado(anuncio.status)">
+                  <ion-col col-sm-4 col-12 text-center>
+                      <button [disabled]="true" small full text-capitalize ion-button  color='orange' (click)="finalizarServico(anuncio.id)">
+                        <ion-icon *ngIf="!isLoading" name="ios-arrow-dropright-circle-outline"></ion-icon>
+                        &nbsp;<div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">AGUARDE SUA AVALIAÇÃO</span>
+                      </button>
+                    </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col center text-center>
+                  <ion-note>
+                    {{anuncio.dataHora | date:'EEEE dd/MM/yyyy'}} às {{anuncio.dataHora | date:'HH:mm'}}
+                  </ion-note>
+                </ion-col>
+
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+    <ion-infinite-scroll *ngIf="meusServicosAndamento.length < totalElementos" (ionInfinite)="obterAnuncios($event, false)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-grid>
+</ion-content>

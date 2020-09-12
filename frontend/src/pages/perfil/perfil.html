@@ -1,0 +1,146 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Perfil</ion-title>
+    </ion-navbar>
+    <ion-segment [(ngModel)]="typeRequest">
+        <ion-segment-button value="perfil">
+            <span>Dados do Usuário</span>
+        </ion-segment-button>
+        <ion-segment-button value="avaliacoes">
+            <span>Avaliações</span>
+        </ion-segment-button>
+    </ion-segment>
+</ion-header>
+<ion-content>
+    <ion-grid [ngSwitch]='typeRequest' class='box'>
+        <ion-grid *ngSwitchCase="'perfil'">
+            <ion-list>
+                <ion-row>
+                  <ion-col style="margin-bottom: -47px;
+    margin-left: -14px;" >
+                    <ion-item  no-lines >
+                      <ion-avatar item-start>
+                        <img *ngIf="!usuarioCompleto.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                        <img *ngIf="usuarioCompleto.fotoUsuario" src="{{usuarioCompleto.fotoUsuario}}" />
+                      </ion-avatar>
+                      <ion-avatar item-start>
+                        <rating [(ngModel)]="media" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onModelChange($event)"></rating>
+                      </ion-avatar>
+                    </ion-item>
+                  </ion-col>
+
+                </ion-row>
+
+                <br><br>
+
+                <ion-item text-wrap>
+                    <h2>Dados Pessoais</h2>
+                    <p><strong>Nome: </strong>{{usuarioCompleto.nome?usuarioCompleto.nome:"não infomado" }} </p>
+                    <p><b>E-mail:</b> {{usuarioCompleto.email?usuarioCompleto.email:"não informado"}} </p>
+                    <p><b>CPF:</b> {{usuarioCompleto.cpf | ocultDoc:3  }} </p>
+                    <p><b>Sexo:</b> {{usuarioCompleto.sexo?usuarioCompleto.sexo:"não informado"}} </p>
+                    <p><b>Escolaridade:</b> {{usuarioCompleto.escolaridade?usuarioCompleto.escolaridade:"não
+                        informado"}} </p>
+                </ion-item>
+
+                <ion-item *ngIf="usuarioCompleto.dadosProfissionais != null">
+                    <h2>Informações Trabalhistas</h2>
+                    <p class="justify"><b>Resumo: </b>
+                        {{usuarioCompleto.dadosProfissionais.resumo?usuarioCompleto.dadosProfissionais.resumo:"não
+                        informado"}} </p>
+                    <p><b>Profissão principal: </b>
+                        {{usuarioCompleto.dadosProfissionais.profissaoPrincipal?usuarioCompleto.dadosProfissionais.profissaoPrincipal.nome:'não
+                        informado'}} </p>
+                    <p><b>Serviços prestados: </b>
+                        {{usuarioCompleto.dadosProfissionais.qtdServicos?usuarioCompleto.dadosProfissionais.qtdServicos:0}}
+                    </p>
+
+                </ion-item>
+
+                <ion-item *ngIf="usuarioCompleto.endereco != null">
+                    <h2>Endereço/Contato</h2>
+                    <p><b>CEP:</b> {{usuarioCompleto.endereco.cep?usuarioCompleto.endereco.cep:"não informado"}} </p>
+                    <p><b>Bairro:</b> {{usuarioCompleto.endereco.bairro?usuarioCompleto.endereco.bairro:"não
+                        informado"}} </p>
+                    <p><b>Localidade:</b>
+                        {{usuarioCompleto.endereco.localidade?usuarioCompleto.endereco.localidade:"não
+                        informado"}} </p>
+                    <p><b>Logradouro:</b>
+                        {{usuarioCompleto.endereco.logradouro?usuarioCompleto.endereco.logradouro:"não
+                        informado"}} </p>
+                    <p><b>UF:</b> {{usuarioCompleto.endereco.uf?usuarioCompleto.endereco.uf:"não informado"}} </p>
+                    <p><b>Celular:</b> {{usuarioCompleto.celular?usuarioCompleto.celular:"não informado"}} </p>
+                    <p><b>Telefone:</b> {{usuarioCompleto.telefone?usuarioCompleto.telefone:"não informado"}} </p>
+                </ion-item>
+            </ion-list>
+            <ion-card *ngIf="!emailCandidato">
+
+                <button color="padrao" ion-button icon-start full (click)="goAtualizarDados()">
+                    <div class="lds-ellipsis" *ngIf="isLoading">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div><span *ngIf="!isLoading">Atualizar</span>
+                </button>
+            </ion-card>
+        </ion-grid>
+
+        <ion-grid *ngSwitchCase="'avaliacoes'">
+
+            <ion-row *ngIf="usuarioCompleto.avaliacaos ==  0" class="rowNda">
+                <ion-col col-12 text-center>
+                    <img class="config" src="assets/imgs/cactus.svg">
+                    <h1>Nada foi adicionado <br /> ainda!</h1>
+                </ion-col>
+            </ion-row>
+          <div *ngFor="let avaliacao of usuarioCompleto.avaliacaos">
+            <ion-list>
+              <ion-row style="margin-bottom: -55px;">
+                <ion-col >
+                  <ion-item  no-lines >
+                    <ion-avatar item-start>
+                      <img *ngIf="!avaliacao.usuario.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                      <img *ngIf="avaliacao.usuario.fotoUsuario" src="{{avaliacao.usuario.fotoUsuario}}" />
+                    </ion-avatar>
+                    <ion-avatar item-start>
+                      <rating [(ngModel)]="media" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onModelChange($event)"></rating>
+                      <h2 style="    margin-left: 13px;">{{ avaliacao.usuario.nome }}</h2>
+                    </ion-avatar>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-list>
+            <ion-card >
+                <ion-card-header>
+                    <ion-row>
+                        <ion-col style="margin-left: -14px;
+    margin-bottom: -36px;">
+                            <ion-list>
+                                <ion-item text-wrap>
+                                    <h2>Anúncio</h2>
+                                    <p><strong>Título: </strong>{{avaliacao.anuncio.titulo}} </p>
+                                    <br>
+                                    <h2>Avaliação</h2>
+                                    <p><strong>Comentário </strong></p>
+                                    <p>{{avaliacao.comentario}}</p>
+
+                                </ion-item>
+                            </ion-list>
+                        </ion-col>
+                    </ion-row>
+                    <!-- Anuncio : {{avaliacao.anuncio.titulo}}:
+              Descrição</label><p>{{avaliacao.anuncio.descricao}}</p> -->
+                </ion-card-header>
+                <ion-card-content>
+
+                </ion-card-content>
+            </ion-card>
+            <hr>
+          </div>
+        </ion-grid>
+    </ion-grid>
+</ion-content>

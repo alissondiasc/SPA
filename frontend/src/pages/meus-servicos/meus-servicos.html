@@ -1,0 +1,194 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus serviços</ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="typeRequest">
+    <ion-segment-button value="servicoNovo">
+      <span>Todos</span>
+    </ion-segment-button>
+    <ion-segment-button value="servicoAndamento">
+      <span>Em andamento</span>
+    </ion-segment-button>
+    <ion-segment-button value="servicoFinalizado">
+      <span>Concluídos</span>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-content>
+  <ion-grid [ngSwitch]='typeRequest' class='box'>
+    <ion-grid *ngSwitchCase="'servicoNovo'">
+        <ion-row *ngIf="!!cactoNovo" class="rowNda">
+            <ion-col col-12 text-center>
+              <img class ="config"src="assets/imgs/cactus.svg">
+              <h1>Nada foi adicionado <br /> ainda!</h1>
+            </ion-col>
+          </ion-row>
+
+      <ion-card *ngFor="let anuncio of meus_anuncios">
+        <ion-row >
+          <ion-col>
+              <ion-item  style="margin-bottom: -24px;">
+                  <ion-avatar item-start>
+                      <img *ngIf="!anuncio.anunciante.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                      <img *ngIf="anuncio.anunciante.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+                  </ion-avatar>
+                <ion-label>{{anuncio.anunciante.nome}}</ion-label>
+
+                <ion-avatar item-end>
+                  <ion-icon class="fa-edit" style="float: right;" (click)="edit(anuncio.id)" name="md-settings"></ion-icon>
+                </ion-avatar>
+
+                </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-card-header>
+            <p class="justify"><b>Título:</b> {{anuncio.titulo}}</p>
+        </ion-card-header>
+        <ion-card-content>
+            <p class="justify"><b>Descrição: </b> {{anuncio.descricao | elipseFilter:100}} </p>
+          <ion-row no-margin no-padding>
+            <ion-col text-rigth col-sm-4 col-12>
+              <button small full text-capitalize color="padrao" ion-button (click)="goCandidatos(anuncio.id, anuncio.anunciante.id)">
+                <ion-icon style="margin-left: 27px;!important;" name="list"></ion-icon>
+                &nbsp; Candidatos
+                &nbsp;&nbsp;&nbsp; <ion-badge style="margin: -9px;!important;" *ngIf="!!anuncio.candidatos" id="cart-badge">{{ anuncio.candidatos.length }}</ion-badge>
+              </button>
+            </ion-col>
+            <ion-col text-rigth col-sm-4 col-12>
+              <button small full text-capitalize color="final" ion-button (click)="deletar(anuncio.id)">
+                <ion-icon name="trash"></ion-icon>
+                &nbsp; Apagar
+                &nbsp;&nbsp;&nbsp;
+              </button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col center text-center>
+              <ion-note>
+                {{anuncio.dataHora | date:'EEEE dd/MM/yyyy'}} às {{anuncio.dataHora | date:'HH:mm'}}
+              </ion-note>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+
+
+
+    <ion-grid *ngSwitchCase="'servicoAndamento'">
+        <ion-row *ngIf="!!cactoEmAndamento" class="rowNda">
+            <ion-col col-12 text-center>
+              <img class ="config" src="assets/imgs/cactus.svg">
+              <h1>Nada foi adicionado <br /> ainda!</h1>
+            </ion-col>
+          </ion-row>
+      <ion-card *ngFor="let anuncio of meus_em_andamento">
+        <ion-row >
+          <ion-col>
+            <ion-item  style="margin-bottom: -24px;">
+              <ion-avatar item-start>
+                <img *ngIf="!anuncio.anunciante.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                <img *ngIf="anuncio.anunciante.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+              </ion-avatar>
+              <ion-label>{{anuncio.anunciante.nome}}</ion-label>
+
+              <ion-avatar item-end>
+                <ion-icon class="fa-edit" style="float: right;" (click)="edit(anuncio.id)" name="md-settings"></ion-icon>
+              </ion-avatar>
+
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-card-header>
+            <p class="justify"><b>Título: </b> {{anuncio.titulo}}</p>
+        </ion-card-header>
+        <ion-card-content>
+            <p class="justify"><b>Descrição: </b>{{anuncio.descricao}} </p>
+          <ion-row no-margin no-padding>
+            <ion-col text-rigth col-sm-4 col-12>
+              <button small full text-capitalize color="padrao" ion-button (click)="goCandidatos(anuncio.id, anuncio.anunciante.id)">
+                <ion-icon style="    margin-left: 9px;" name="ios-contact"></ion-icon>
+                &nbsp; Profissional
+              </button>
+            </ion-col>
+            <ion-col col-sm-4 col-12 text-center>
+                <button  small full text-capitalize ion-button  color='orange' (click)="finalizarServico(anuncio.id)">
+                  <ion-icon *ngIf="!isLoading" name="md-checkmark-circle-outline"></ion-icon>
+                  &nbsp;<div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">FINALIZAR</span>
+                </button>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col center text-center>
+              <ion-note>
+                {{anuncio.dataHora | date:'EEEE dd/MM/yyyy'}} às {{anuncio.dataHora | date:'HH:mm'}}
+              </ion-note>
+            </ion-col>
+
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-grid>
+    <ion-grid *ngSwitchCase="'servicoFinalizado'">
+        <ion-row *ngIf="!!cactoFinalizado" class="rowNda">
+            <ion-col col-12 text-center>
+              <img class ="config" src="assets/imgs/cactus.svg">
+              <h1>Nada foi adicionado <br /> ainda!</h1>
+            </ion-col>
+          </ion-row>
+      <ion-card *ngFor="let anuncio of meus_servicos_finalizado">
+        <ion-row >
+          <ion-col>
+            <ion-item  style="margin-bottom: -24px;">
+              <ion-avatar item-start>
+                <img *ngIf="!anuncio.anunciante.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                <img *ngIf="anuncio.anunciante.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+              </ion-avatar>
+              <ion-label>{{anuncio.anunciante.nome}}</ion-label>
+
+              <ion-avatar item-end>
+                <ion-icon class="fa-edit" style="float: right;" (click)="edit(anuncio.id)" name="md-settings"></ion-icon>
+              </ion-avatar>
+
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+            <ion-card-header>
+                <p class="justify"><b>Título: </b> {{anuncio.titulo}}</p>
+            </ion-card-header>
+            <ion-card-content>
+                <p class="justify"><b>Descrição: </b>{{anuncio.descricao}} </p>
+              <ion-row no-margin no-padding>
+                <ion-col *ngIf="anuncio.statusAnuncio == 'FINALIZADO'"text-center col-12>
+                    <button small full ion-button icon-start color='orange' (click)="avaliarServico(anuncio.id)">
+                        <ion-icon *ngIf="!isLoading" name="md-thumbs-up"></ion-icon>
+                        <div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">AVALIAR</span>
+                      </button>
+                </ion-col>
+                <ion-col *ngIf="anuncio.statusAnuncio == 'ANUNCIOFINALIZADO'"text-center col-12>
+                  <button  small full ion-button icon-start color='final' (click)="deletar(anuncio.id)">
+                    <ion-icon name="trash"></ion-icon>
+                   <div> Apagar</div>
+                  </button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col center text-center>
+                  <ion-note>
+                    {{anuncio.dataHora | date:'EEEE dd/MM/yyyy'}} às {{anuncio.dataHora | date:'HH:mm'}}
+                  </ion-note>
+                </ion-col>
+
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+    </ion-grid>
+  </ion-grid>
+</ion-content>
+
+

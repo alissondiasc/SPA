@@ -1,0 +1,106 @@
+<ion-content class="bg-img">
+  
+  <ion-grid class="main-content">
+    <ion-row>
+      <ion-col padding text-center class="container-logo">
+        <img src="assets/imgs/LogoAlisson.png">
+      
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row text-center class="socialLogin" padding>
+      <ion-col>
+        <button ion-button full class="google">
+          <ion-icon name="logo-google" style="margin-right: 12px;"></ion-icon>Entrar com Google
+        </button>
+        <button ion-button full class="facebook">
+          <ion-icon name="logo-facebook" style="margin-right: 12px;"></ion-icon> Entrar com Facebook
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="sepretor-or" padding-horizontal>
+      <ion-col>
+        <p>OU</p>
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row>
+      <ion-col>
+        <!-- <div padding class="container-bottom"> -->
+        <form [formGroup]="validations_form" (submit)=logar(loginData)>
+
+          <!-- <ion-row class="errormsg">
+            <ion-col col-12 class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.email">
+                <div class="error-message" *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </ion-col>
+            <ion-col col-12 class="validation-errors">
+              <ng-container *ngFor="let validation of validation_messages.senha">
+                <div class="error-message" *ngIf="validations_form.get('senha').hasError(validation.type) && (validations_form.get('senha').dirty || validations_form.get('senha').touched)">
+                  <p>{{ validation.message }}</p>
+                </div>
+              </ng-container>
+            </ion-col>
+          </ion-row> -->
+
+          <ion-row>
+            <ion-col col-12 >
+
+
+              <ion-item >
+                <ion-label>
+                  <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
+                </ion-label>
+                <ion-input required placeholder="Email *" [(ngModel)]="loginData.email" [textMask]="emailMask" type="text"
+                  formControlName="email"></ion-input>
+              </ion-item>
+
+              <ion-item >
+                <ion-label>
+                  <ion-icon ios="ios-unlock" md="md-unlock"></ion-icon>
+                </ion-label>
+                <ion-input required placeholder="Senha *" [(ngModel)]="loginData.senha" id="password" type="{{passwordtype}}"
+                  formControlName="senha"></ion-input>
+                <button ion-button clear class="eye-icon-btn" type="button" item-right (click)="managePassword()">
+                  <ion-icon name="{{passeye}}"></ion-icon>
+                </button>
+              </ion-item>
+
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <button ion-button full color="dark" [disabled]="!validations_form.valid && isLoading">
+                  <!-- <div class="lds-hourglass" *ngIf="isLoading"></div> <span *ngIf="!isLoading">Sing In</span> -->
+                  <div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">Entrar</span>
+              </button>
+            </ion-col>
+          </ion-row>
+        </form>
+        <!-- <button ion-button full color="dark" (click)="goLogaSemServidor()">Logar Sem Servidor</button> -->
+        <ion-row>
+
+          <ion-col col-12 padding text-center class="form-bottom-text">
+            <a href="javascript:void(0);"  (click)="goEsqueceu()"> Esqueceu sua senha?</a>
+          </ion-col>
+          <ion-col col-12 padding text-center class="form-bottom-text">
+            <label>Não tem uma conta?
+              <a href="javascript:void(0);" (click)="goCadastrar()">Inscreva-se</a>
+            </label>
+          </ion-col>
+        </ion-row>
+
+        <!-- </div> -->
+
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+
+
+</ion-content>
