@@ -41,7 +41,7 @@ export class CadastroDadosProfissionaisPage {
       { type: 'pattern', message: 'Entre com um email válido.' },
     ],
     'resumoProfissional': [
-      { type: 'required', message: 'Ops! Conte mais sobre seu trabalho.' } 
+      { type: 'required', message: 'Ops! Conte mais sobre seu trabalho.' }
     ],
     'cep': [
       { type: 'required', message: 'CEP é um campo obrigatorio.' },
@@ -70,9 +70,9 @@ export class CadastroDadosProfissionaisPage {
     'escolaridade': [
       { type: 'required', message: 'Escolaridade principal é obrigatorio.' }
     ],
-   
-    
-    
+
+
+
   };
   isLoading: boolean;
 
@@ -90,7 +90,7 @@ export class CadastroDadosProfissionaisPage {
     this.isLoading = false;
     this.validarConfigurarDadosUsuarios();
     this.getCategorias();
-    
+
 
   }
 
@@ -113,7 +113,7 @@ export class CadastroDadosProfissionaisPage {
         toastg.present();
       }
     }
- 
+
   }
   getRemove(){
     this.usuarioCompleto.fotoUsuario = null;
@@ -150,10 +150,10 @@ export class CadastroDadosProfissionaisPage {
 
       }
     }
-  
+
   }
   onModelChange(event){
-    
+
   }
 
   ionViewWillLoad() {
@@ -231,6 +231,21 @@ export class CadastroDadosProfissionaisPage {
       this.response.telefone?this.usuarioCompleto.telefone = this.response.telefone:this.usuarioCompleto.telefone;
       this.response.celular?this.usuarioCompleto.celular = this.response.celular:this.usuarioCompleto.celular;
       this.response.fotoUsuario?this.usuarioCompleto.fotoUsuario = this.response.fotoUsuario:this.usuarioCompleto.fotoUsuario;
-      
+
+  }
+
+  recebeArquivo(event) {
+    if (event.target.files && event.target.files[0]) {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+
+        const reader = new FileReader();
+        reader.onload = e =>  this.usuarioCompleto.fotoUsuario = reader.result;
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+
   }
 }

@@ -2,7 +2,7 @@ import { Endereco } from "./endereco";
 import { DadosProfissionais } from "./dadosprofissionais";
 import { Avaliacaos } from "./avaliacaos";
 
-export class UsuarioCompleto{ 
+export class UsuarioCompleto{
     public id:string;
     public nome: string;
     public cpf: string;
@@ -19,12 +19,12 @@ export class UsuarioCompleto{
     public endereco: Endereco;
     public telefone: string;
     public celular: string;
-    public fotoUsuario: string;
-  
+    public fotoUsuario: any;
+
     constructor(){
       this.endereco = new Endereco();
       this.dadosProfissionais = new DadosProfissionais();
       this.avaliacaos = new Array<Avaliacaos>();
     }
-  
+
   }

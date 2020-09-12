@@ -24,17 +24,21 @@
 
         <ion-row>
             <ion-col class="x">
-              <ion-item>
+              <ion-item no-lines>
                 <ion-avatar item-start>
                   <img *ngIf="!usuarioCompleto.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
                   <img *ngIf="usuarioCompleto.fotoUsuario" src="{{usuarioCompleto.fotoUsuario}}"/>
                 </ion-avatar>
-                <a (click)="getImagem()">Alterar</a>
-                <a class="remove" (click)="getRemove()">Remover</a>
               </ion-item>
-
             </ion-col>
           </ion-row>
+      <ion-row>
+        <ion-col>
+          <input type="file" id="myFile" (change)="recebeArquivo($event)">
+          <a (click)="getImagem()">Tirar foto</a>
+          <a class="remove" (click)="getRemove()">Remover</a>
+        </ion-col>
+      </ion-row>
           <br>
       <ion-row>
         <ion-col col-12>
