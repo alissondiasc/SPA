@@ -95,9 +95,9 @@ export class MeusServicosPage {
       take(1),
     ).subscribe((data: any) => {
       data.forEach(element => {
-        if (element.statusAnuncio == "NOVO") {
+        if (element.status == "NOVO") {
           this.meus_anuncios.push(element);
-        } else if (element.statusAnuncio == "EM_ANDAMENTO") {
+        } else if (element.status == "EM_ANDAMENTO") {
           this.meus_em_andamento.push(element);
         } else {
           this.meus_servicos_finalizado.push(element);

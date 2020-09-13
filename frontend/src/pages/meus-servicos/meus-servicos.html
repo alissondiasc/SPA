@@ -32,10 +32,10 @@
           <ion-col>
               <ion-item  style="margin-bottom: -24px;">
                   <ion-avatar item-start>
-                      <img *ngIf="!anuncio.anunciante.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
-                      <img *ngIf="anuncio.anunciante.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+                      <img *ngIf="!anuncio.usuario.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                      <img *ngIf="anuncio.usuario.fotoUsuario" src="{{anuncio.usuario.fotoUsuario}}"/>
                   </ion-avatar>
-                <ion-label>{{anuncio.anunciante.nome}}</ion-label>
+                <ion-label>{{anuncio.usuario.nome}}</ion-label>
 
                 <ion-avatar item-end>
                   <ion-icon class="fa-edit" style="float: right;" (click)="edit(anuncio.id)" name="md-settings"></ion-icon>
@@ -52,7 +52,7 @@
             <p class="justify"><b>Descrição: </b> {{anuncio.descricao | elipseFilter:100}} </p>
           <ion-row no-margin no-padding>
             <ion-col text-rigth col-sm-4 col-12>
-              <button small full text-capitalize color="padrao" ion-button (click)="goCandidatos(anuncio.id, anuncio.anunciante.id)">
+              <button small full text-capitalize color="padrao" ion-button (click)="goCandidatos(anuncio.id, anuncio.usuario.id)">
                 <ion-icon style="margin-left: 27px;!important;" name="list"></ion-icon>
                 &nbsp; Candidatos
                 &nbsp;&nbsp;&nbsp; <ion-badge style="margin: -9px;!important;" *ngIf="!!anuncio.candidatos" id="cart-badge">{{ anuncio.candidatos.length }}</ion-badge>
@@ -91,10 +91,10 @@
           <ion-col>
             <ion-item  style="margin-bottom: -24px;">
               <ion-avatar item-start>
-                <img *ngIf="!anuncio.anunciante.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
-                <img *ngIf="anuncio.anunciante.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+                <img *ngIf="!anuncio.usuario.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                <img *ngIf="anuncio.usuario.fotoUsuario" src="{{anuncio.usuario.fotoUsuario}}"/>
               </ion-avatar>
-              <ion-label>{{anuncio.anunciante.nome}}</ion-label>
+              <ion-label>{{anuncio.usuario.nome}}</ion-label>
 
               <ion-avatar item-end>
                 <ion-icon class="fa-edit" style="float: right;" (click)="edit(anuncio.id)" name="md-settings"></ion-icon>
@@ -110,7 +110,7 @@
             <p class="justify"><b>Descrição: </b>{{anuncio.descricao}} </p>
           <ion-row no-margin no-padding>
             <ion-col text-rigth col-sm-4 col-12>
-              <button small full text-capitalize color="padrao" ion-button (click)="goCandidatos(anuncio.id, anuncio.anunciante.id)">
+              <button small full text-capitalize color="padrao" ion-button (click)="goCandidatos(anuncio.id, anuncio.usuario.id)">
                 <ion-icon style="    margin-left: 9px;" name="ios-contact"></ion-icon>
                 &nbsp; Profissional
               </button>
@@ -145,10 +145,10 @@
           <ion-col>
             <ion-item  style="margin-bottom: -24px;">
               <ion-avatar item-start>
-                <img *ngIf="!anuncio.anunciante.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
-                <img *ngIf="anuncio.anunciante.fotoUsuario" src="{{anuncio.anunciante.fotoUsuario}}"/>
+                <img *ngIf="!anuncio.usuario.fotoUsuario" src="assets/icon/icone-do-usuario.jpg">
+                <img *ngIf="anuncio.usuario.fotoUsuario" src="{{anuncio.usuario.fotoUsuario}}"/>
               </ion-avatar>
-              <ion-label>{{anuncio.anunciante.nome}}</ion-label>
+              <ion-label>{{anuncio.usuario.nome}}</ion-label>
 
               <ion-avatar item-end>
                 <ion-icon class="fa-edit" style="float: right;" (click)="edit(anuncio.id)" name="md-settings"></ion-icon>

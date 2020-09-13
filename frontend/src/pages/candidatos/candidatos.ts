@@ -7,13 +7,6 @@ import { Anuncio } from '../../entidades/anuncio';
 import { Loader } from '../../providers/Loader';
 import { finalize } from 'rxjs/operators';
 
-/**
- * Generated class for the CandidatosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-candidatos',
@@ -25,6 +18,7 @@ export class CandidatosPage {
   public candidatos:any[] = [];
   public servio = new Anuncio();
   public isLoading: boolean;
+  public cacto: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -41,8 +35,16 @@ export class CandidatosPage {
   getCandidatos(id: string) {
     this.loader.show();
     this.idAnuncio = id;
-    this.servicoProvider.getCandidatos(id).pipe(finalize(()=> this.loader.hide())).subscribe((data: any) => {
-      this.candidatos = data;
+    this.servicoProvider
+      .getCandidatos(id)
+      .pipe(finalize(
+        ()=> this.loader.hide()))
+      .subscribe(
+        (data: any) => {
+              this.candidatos = data;
+              if(!this.candidatos.length){
+                this.cacto = true;
+              }
     }, error => {
       let toastg = this.toastCtrl.create({
         message: 'Falha ao buscar candidatos, Tente Novamente',
@@ -72,9 +74,7 @@ export class CandidatosPage {
       });
       toast.present();
       this.navCtrl.setRoot(MeusServicosPage);
-    })
-
-
+    });
   }
 
 }
