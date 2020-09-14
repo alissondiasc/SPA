@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface CategoriaRepository extends MongoRepository<Categoria, String> {
 
     Categoria findByNome(String nome);
-    int countByIdNotNull();
 }

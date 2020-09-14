@@ -4,20 +4,16 @@ import com.acj.spa.dto.EsqueceuSenhaDTO;
 import com.acj.spa.dto.PassWordDTO;
 import com.acj.spa.dto.UsuarioDTO;
 import com.acj.spa.dto.parser.UsuarioParser;
-import com.acj.spa.entities.Anuncio;
 import com.acj.spa.entities.Avaliacao;
 import com.acj.spa.entities.DadosProfissionais;
 import com.acj.spa.entities.Usuario;
-
 import com.acj.spa.repositories.AnuncioRepository;
 import com.acj.spa.repositories.UsuarioRepository;
 import com.acj.spa.security.UsuarioSecurity;
 import com.acj.spa.services.exception.ObjectNotFoundException;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -25,9 +25,6 @@ public class CategoriaService {
         Categoria categoria = categoriaRepository.findById(id).orElse(null);
         return CategoriaParser.toDTO(categoria);
     }
-    public boolean countCategorias(){
-        return  this.categoriaRepository.count() > 0;
-    }
     
     public List<Categoria> buscarTodos() {
         return categoriaRepository.findAll();
