@@ -18,7 +18,7 @@ export class WebsocketProvider {
     let ws = new SockJS(`${this.api.url}/notificacao`);
     this.stompClient = Stomp.over(ws);
     const _this = this;
-    _this.stompClient.connect({}, function (frame) {
+    _this.stompClient.connect({},  (frame) => {
       _this.stompClient.subscribe(_this.topic, function (sdkEvent) {
         console.log(sdkEvent)
       });

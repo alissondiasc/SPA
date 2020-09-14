@@ -10,6 +10,10 @@ import { Anuncio } from '../../entidades/anuncio';
 import { Loader } from '../../providers/Loader';
 import { finalize } from 'rxjs/operators';
 import { WebsocketProvider } from '../../webSocket/websocket';
+import { ApiProvider } from '../../providers/api/api';
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
+
 
 
 @Component({
@@ -27,6 +31,8 @@ export class HomePage {
   private totalElementos: number;
   public filtro: any = {};
   private cacto: boolean;
+  stompClient: any;
+  private notificacoes: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -35,24 +41,39 @@ export class HomePage {
     public loaderCom: Loader,
     public alertController: AlertController,
     private userProvider: UserProvider,
+    private api: ApiProvider,
     private websocketProvider: WebsocketProvider
   ) {
     this.filtro.page = 0;
     this.carregarDadosUsuario();
     this.obterAnuncios(false, false);
 
-  };
 
-  // private subscribeOnSocket() {
-  //   console.log("/topic/a")
-  //   this.websocketProvider.subscribeOnSocket('/topic/a', (get) => {
-  //     console.log(get,"no subscribe" )
-  //   });
-  // }
+  };
+  _connect() {
+    console.log("Initialize WebSocket Connection");
+    let ws = new SockJS(`${this.api.url}/notificacao`);
+    this.stompClient = Stomp.over(ws);
+    const _this = this;
+    _this.stompClient.connect({},  (frame) => {
+      _this.stompClient.subscribe('/topic/new.notificacao'+this.usuarioCompleto.id, (listNotificacao:any) => {
+        const responde =  JSON.parse(listNotificacao.body);
+        if(responde!! && responde > this.notificacoes){
+          this.notificacoes = responde;
+        }
+      });
+      //_this.stompClient.reconnect_delay = 2000;
+    }, this.errorCallBack);
+  }
+  errorCallBack(error) {
+    console.log("errorCallBack -> " + error)
+    setTimeout(() => {
+      this._connect();
+    }, 5000);
+  }
 
 
   pageDetalhes(anuncio) {
-   // console.log(anuncio)
     this.navCtrl.push(ServicoDetalhesPage, { anuncio: anuncio })
   }
 
@@ -62,7 +83,7 @@ export class HomePage {
         const response = (user as any);
         this.usuarioCompleto = response;
         this.dados_usuario = response;
-        // this.subscribeOnSocket()
+        this._connect()
       });
   }
 

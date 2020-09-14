@@ -18,8 +18,11 @@
       <button ion-button icon-only *ngIf="!buscaTitulo" (click)="buscaTitulo=true">
         <ion-icon name="search"></ion-icon>
       </button>
-      <notificacao></notificacao>
 
+      <button ion-button icon-only >
+        <ion-icon style="color: #fd9205 " name="ios-notifications-outline"></ion-icon>
+        <ion-badge *ngIf="!!notificacoes" color='danger' >{{ notificacoes }}</ion-badge>
+      </button>
     </ion-buttons>
 
 
