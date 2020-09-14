@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ModalComponetComponent } from './modal-componet/modal-componet';
+import { NotificacaoComponent } from './notificacao/notificacao';
+
 @NgModule({
-	declarations: [ModalComponetComponent],
+	declarations: [NotificacaoComponent],
 	imports: [],
-	exports: [ModalComponetComponent]
+	exports: [NotificacaoComponent]
 })
 export class ComponentsModule {}

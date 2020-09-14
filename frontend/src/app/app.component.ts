@@ -12,10 +12,12 @@ import { ServicoProvider } from '../providers/servico/servico';
 import { elementEnd } from '@angular/core/src/render3/instructions';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { SobrePage } from '../pages/sobre/sobre';
+import { WebsocketProvider } from '../webSocket/websocket';
 
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers:[WebsocketProvider]
 })
 export class MyApp {
 
@@ -31,25 +33,18 @@ export class MyApp {
 
   pages: any[] = [
     { title: 'Meus Serviços', component: 'MeusServicosPage', active: true, icon: 'albums' },
-    //{ title: 'Serviço em Andamento', component: 'ServicoRealizadoPage', active: true, icon: 'ios-albums' },
     { title: 'Perfil', component: 'PerfilPage', active: true, icon: 'person' },
-    // { title: 'Configuracoes', component: 'MinhaContaPage', active: true, icon: 'md-person' }
   ]
 
 
 constructor(public app :App, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private userProvider: UserProvider, private servivoProvider:ServicoProvider) {
     platform.ready().then(() => {
-
-
-
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
     });
 
-
   }
+
 
   @HostListener('click', ['$event'],)
   runThisMethod() {

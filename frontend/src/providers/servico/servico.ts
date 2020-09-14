@@ -9,7 +9,7 @@ export class ServicoProvider {
   public anuncios : Array<any>
 
   constructor(public http: HttpClient, public api : ApiProvider, public user: UserProvider) {
-   this.listaAnuncios3();
+   // this.listaAnuncios3();
   }
 
   headerComAuthenticacao(){

@@ -164,13 +164,13 @@
             <ion-card-content>
                 <p class="justify"><b>Descrição: </b>{{anuncio.descricao}} </p>
               <ion-row no-margin no-padding>
-                <ion-col *ngIf="anuncio.statusAnuncio == 'FINALIZADO'"text-center col-12>
+                <ion-col *ngIf="anuncio.status == 'FINALIZADO'"text-center col-12>
                     <button small full ion-button icon-start color='orange' (click)="avaliarServico(anuncio.id)">
                         <ion-icon *ngIf="!isLoading" name="md-thumbs-up"></ion-icon>
                         <div class="lds-ellipsis"  *ngIf="isLoading"><div></div><div></div><div></div><div></div></div><span *ngIf="!isLoading">AVALIAR</span>
                       </button>
                 </ion-col>
-                <ion-col *ngIf="anuncio.statusAnuncio == 'ANUNCIOFINALIZADO'"text-center col-12>
+                <ion-col *ngIf="anuncio.status == 'ANUNCIOFINALIZADO'"text-center col-12>
                   <button  small full ion-button icon-start color='final' (click)="deletar(anuncio.id)">
                     <ion-icon name="trash"></ion-icon>
                    <div> Apagar</div>

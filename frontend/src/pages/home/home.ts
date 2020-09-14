@@ -9,6 +9,7 @@ import { ServicoDetalhesPage } from '../servico-detalhes/servico-detalhes';
 import { Anuncio } from '../../entidades/anuncio';
 import { Loader } from '../../providers/Loader';
 import { finalize } from 'rxjs/operators';
+import { WebsocketProvider } from '../../webSocket/websocket';
 
 
 @Component({
@@ -33,14 +34,21 @@ export class HomePage {
     public toastCtrl: ToastController,
     public loaderCom: Loader,
     public alertController: AlertController,
-    private userProvider: UserProvider
+    private userProvider: UserProvider,
+    private websocketProvider: WebsocketProvider
   ) {
     this.filtro.page = 0;
     this.carregarDadosUsuario();
     this.obterAnuncios(false, false);
 
-
   };
+
+  // private subscribeOnSocket() {
+  //   console.log("/topic/a")
+  //   this.websocketProvider.subscribeOnSocket('/topic/a', (get) => {
+  //     console.log(get,"no subscribe" )
+  //   });
+  // }
 
 
   pageDetalhes(anuncio) {
@@ -54,6 +62,7 @@ export class HomePage {
         const response = (user as any);
         this.usuarioCompleto = response;
         this.dados_usuario = response;
+        // this.subscribeOnSocket()
       });
   }
 

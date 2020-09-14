@@ -1,19 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Country } from '../form/form.model';
 import { UserProvider } from './../../providers/user/user';
 import { UsuarioCompleto } from '../../entidades/Usuario';
 import { ServicoProvider } from './../../providers/servico/servico';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-
-/**
- * Generated class for the CadastroDadosProfissionaisPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -22,10 +14,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class CadastroDadosProfissionaisPage {
   dadosProfissionaisForm: FormGroup;
-  paises_telefone_grupo: FormGroup;
   response: any;
-  paises: Array<Country>;
-  generos: Array<string>;
   usuarioCompleto = new UsuarioCompleto();
   listCAtegorias: any;
   validation_messages = {
@@ -152,12 +141,8 @@ export class CadastroDadosProfissionaisPage {
     }
 
   }
-  onModelChange(event){
-
-  }
 
   ionViewWillLoad() {
-
     this.dadosProfissionaisForm = this.formBuilder.group({
       nomeCompleto: new FormControl(this.usuarioCompleto.nome, Validators.required),
       sexo: new FormControl(this.usuarioCompleto.sexo),

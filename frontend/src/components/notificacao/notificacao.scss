@@ -1,0 +1,13 @@
+notificacao {
+  ion-icon[name=ios-notifications-outline]{
+    font-size: 30px;
+    color: #fff;
+    margin-right: 20px;
+  }
+  ion-badge[color=danger]{
+    position: absolute;
+    right: 5px;
+    top: -5px;
+  }
+
+}

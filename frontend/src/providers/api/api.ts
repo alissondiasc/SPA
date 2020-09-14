@@ -11,12 +11,8 @@ import { Injectable } from '@angular/core';
 export class ApiProvider {
 
 
-// url: string='https://backendspa.herokuapp.com/api';
+// public url: string='https://backendspa.herokuapp.com/api';
 url: string = 'http://localhost:8080/api';
-
-
-
-
 
   constructor(public http: HttpClient) {
     console.log('Hello ApiProvider Provider', this.url);
